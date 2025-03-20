@@ -1,0 +1,57 @@
+print("Name: Evalynna Ong")
+print("Student ID: 20580407")
+print("Email: waikoloa555@gmail.com")
+print("Policies: \n 1. It is the student's responsibility to drop from the class before the deadline \n 2. All assignments have a set due date and cut off date. Late submissions will result in penalties \n 3. Regrades must be requested no later than one week after the assignment is returned to the student")
+
+
+#Deck of cards with deal and shuffle methods
+
+import random
+
+
+class Deck: 
+  def __init__(self):
+    self.hand = [] #deck will be a list 
+    self.outBox()
+    self.shuffle()
+    self.deal()
+
+  def outBox(self): #represents deck fresh out the box
+    for su in ["Hearts", "Diamonds", "Clubs", "Spades"]: 
+      for val in ['A', '2', '3', '4', '5','6', '7', '8', '9', '10', 'J', 'Q', 'K']: 
+        self.hand.append(Card(su, val)) #adds cards to deck represented by the list 'hand'
+  
+  #shuffles deck after outBox using random:
+  def shuffle(self): 
+    random.shuffle(self.hand)
+#to check if deck gets shuffled:     
+#    for c in self.hand:
+#      c.pick() 
+        
+  def deal(self): 
+    dealt = self.hand[0]
+    dealt.deal()
+    self.hand.remove(dealt)
+#to check if removes it from deck: 
+#    for c in self.hand:
+#      c.pick()
+
+
+class Card: 
+    
+    def __init__(self, suit, value): 
+      self.__suit = suit
+      self.__value = value
+      
+    
+    def pick(self): #shows card
+      print (self.__suit +' '+ self.__value)
+
+    def deal(self): 
+      print ("Dealt:" + self.__suit + ' '+ self.__value)
+    
+#test if can print card; ok
+#card = Card("Hearts", '5')
+#card.pick()
+
+deck = Deck()
