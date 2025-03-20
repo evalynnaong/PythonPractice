@@ -1,0 +1,44 @@
+print("Polymorphism in python is the ability of an object to take on many forms. Depending on the object, a method can have varying results. Much like how different ecoystems are composed of different living things.")
+
+
+#polymorphism example: create an ecosystem with different plants and animals
+ 
+class Environment(): 
+  def __init__(self, plant, inhabitant): 
+    self.plant = plant
+    self.inhabitant = inhabitant 
+
+  def where(self): 
+    print("You are on Earth")
+
+  def what(self): 
+    print("There are many", self.plant + 's')
+
+  def who(self): 
+    print(self.inhabitant + 's', "live here")
+
+class Ocean(Environment): 
+  def __init__(self, plant='seaweed', inhabitant='fish'): 
+    self.plant = plant
+    self.inhabitant = inhabitant
+
+  def where(self): 
+    print("You're swimming thru the ocean")
+
+
+
+world1 = Environment('tree', 'human')
+world1.where()
+world1.what()
+world1.who()
+
+#Because Ocean is a subclass of Environment, what() and who() can be called without defining plant or inhabitants. The result of calling where() changes due to polymorphism; the correct method is called. 
+world2 = Ocean()
+world2.where()
+world2.what()
+world2.who()
+
+world3 = Ocean('coral', 'shark')
+world3.where()
+world3.what()
+world3.who()
