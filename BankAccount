@@ -1,0 +1,82 @@
+class BankAccount: 
+
+  def __init__(self, pin): 
+    self.balance = 0
+    self.pin = pin
+
+  def deposit(self, pin, amount): 
+    if pin == self.pin: 
+      self.balance += amount
+      return self.balance
+    else: 
+      print("Incorrect pin")
+
+  def withdraw(self, pin, amount): 
+    if pin == self.pin: 
+      if amount <= self.balance: 
+        self.balance -= amount
+        return self.balance
+      else: 
+        print("Not enough funds")
+    else: 
+      print("Incorrect pin")
+
+  def get_balance(self, pin): 
+    if pin == self.pin: 
+      print("Balance is: " + str(round(self.balance, 2)))
+    else: 
+      print("Incorrect pin")
+
+  def change_pin(self, oldpin, newpin): 
+    if oldpin == self.pin:
+      self.pin = newpin
+    else: 
+      print("Incorrect pin, please try again")
+
+class SavingsAccount(BankAccount): 
+#interest based on a fixed rate, determined by variable below 'time'  
+  def __init__(self, pin, interest):
+    super().__init__(pin)
+    self.interest = interest
+
+  def get_balance(self, pin, time): 
+    if pin == self.pin: 
+      self.balance = self.balance + self.balance*(self.interest*time)
+      print("Balance is: " + str(round(self.balance, 2)))
+    else: 
+      print("Incorrect pin")
+
+class FeeSavingsAccount(SavingsAccount): 
+  
+  def __init__(self, pin, interest, fee):
+    super().__init__(pin, interest)
+    self.fee = fee
+
+  def withdraw(self, pin, amount): 
+    if pin == self.pin: 
+      if self.fee <= self.balance: 
+        self.balance -= self.fee
+        if amount <= self.balance: 
+          self.balance -= amount
+          return self.balance
+        else: 
+          print("Not enough funds")
+      else: 
+        print("Not enough funds")
+    else: 
+      print("Incorrect pin")
+
+#testing if BankAccount Superclass works: 
+#evie = BankAccount(4524)
+#evie.deposit(4524, 5.45)
+#evie.withdraw(4524, 7.30)
+#evie.get_balance(4524)
+#evie.change_pin(4524, 4231)
+#evie.get_balance(4524)
+
+
+evieSav = FeeSavingsAccount(1234, .01, 2.50)
+evieSav.deposit(1234, 1000.07)
+evieSav.get_balance(1234, 10) #after 10 years have passed
+evieSav.withdraw(1234, 5.30)
+evieSav.get_balance(1234, 0) #with 0 more time passing after initial check at 10 years, withdrew $5.30 (with a fee of $2.50)
